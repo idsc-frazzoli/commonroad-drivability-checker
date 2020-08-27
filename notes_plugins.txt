@@ -1,8 +1,0 @@
-You could optionally modify the library to use a plugin for fast triangulation of polygons which uses the CGAL library (https://www.cgal.org/). 
-To do so, CGAL needs to be installed and in line 4 of the file cpp/collision/src/plugins/triangulation/triangulate.cc 0 needs to be replaced with 1.
-
-Please see the license notice in notes.txt.
-
-Please note that the Triangle library can not be used for commercial projects. See license conditions for the Triangle library at https://github.com/libigl/triangle/blob/master/triangle.c  or https://www.cs.cmu.edu/~quake/triangle.html for details. It can be substituted with the CGAL library for polygon triangulation.
-
-Please note that the Polygon3 python package can not be used for commercial projects. See its license conditions at https://www.j-raedler.de/projects/polygon/
