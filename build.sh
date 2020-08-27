@@ -12,7 +12,7 @@ BASEDIR=$(pwd)
 INSTALL="FALSE"
 WHEEL="FALSE"
 CGAL="FALSE"
-S11N="TRUE"
+S11N="FALSE"
 JOBS=1
 DOCS="FALSE"
 COMMONROAD=""
@@ -26,7 +26,7 @@ Options:
     -i | --install    python install after compiling
     -w | --wheel    create wheel package
     --cgal    install the third party package cgal
-    --no-s11n    do not install the third party package s11n for pickling support
+    --serializer    install the third party package s11n for pickle support
     -j COUNT    allowed job count for make -j ${JOBS}
     -d | --docs   creates the documentation while compiling
     -c PATH | --commonroad PATH  absolute path to the commonroad-io library
@@ -292,8 +292,8 @@ while [[ $# -gt 0 ]]; do
     shift # past argument
     ;;
 
-  --no-s11n)
-    S11N="FALSE"
+  --serializer)
+    S11N="TRUE"
     shift # past argument
     ;;
 
