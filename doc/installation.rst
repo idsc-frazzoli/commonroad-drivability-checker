@@ -184,13 +184,13 @@ The **-i** option on the build command will install the drivability checker to t
 
         .. code-block:: bash
 
-            $ bash build.sh -e /path/to/your/anaconda3/envs/commonroad-py36 -v 3.6 --no-s11n -i -j JOB_COUNT
+            $ bash build.sh -e /path/to/your/anaconda3/envs/commonroad-py36 -v 3.6 -i -j JOB_COUNT
 
         **(SUGGESTED) Full installation:**
 
         .. code-block:: bash
 
-            $ bash build.sh -e /path/to/your/anaconda3/envs/commonroad-py36 -v 3.6 --cgal -i -j JOB_COUNT
+            $ bash build.sh -e /path/to/your/anaconda3/envs/commonroad-py36 -v 3.6 --cgal --serializer -i -j JOB_COUNT
 
         **Note that you have to replace**
          - */path/to/your/anaconda3/envs/commonroad-py36* with the path to your Anaconda environment (or virtualenv);
