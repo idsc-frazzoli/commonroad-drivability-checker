@@ -339,6 +339,9 @@ build_fcl
 if [ "${S11N}" == "TRUE" ]; then
   build_s11n
 fi
+if [ "${CGAL}" == "TRUE" ]; then
+  install_cgal
+fi
 if [ "${DOCS}" == "TRUE" ]; then
   build_dc_with_docs
 else
