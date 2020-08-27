@@ -25,8 +25,8 @@ Options:
     -v VERSION | --version VERSION    python version
     -i | --install    python install after compiling
     -w | --wheel    create wheel package
-    --cgal    install the third party package cgal
-    --serializer    install the third party package s11n for pickle support
+    --cgal    install the third-party package cgal
+    --serializer    install the third-party package s11n for pickle support
     -j COUNT    allowed job count for make -j ${JOBS}
     -d | --docs   creates the documentation while compiling
     -c PATH | --commonroad PATH  absolute path to the commonroad-io library
