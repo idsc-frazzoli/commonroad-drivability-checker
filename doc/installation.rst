@@ -7,8 +7,8 @@ In order to install CommonRoad Drivability Checker, we first need to install ess
 followed by installation of optional third party libraries, and finally the installation of CommonRoad Drivability
 Checker itself. All required steps have been provide in the following sections.
 
-**We have also provided an easy to use installation script for full installation on the last section.
-The other sections can be skipped in case you wish to install using the script.**
+**We have also provided an easy to use installation script for full installation for Ubuntu based distributions
+on the last section. The other sections can be skipped in case you wish to install using the script.**
 
 
 Before installing anything, we recommend you to install Anaconda_ and to create an Anaconda environment.
@@ -165,6 +165,9 @@ After installing all essential third party libraries and packages, you can now i
 Full Installation with Installation Script
 ------------------------------------------
 
+**Note: The installation script only works on Ubuntu based distributions. If your operating system is not Ubuntu
+based, please refer to the previous sections.**
+
 We have provided a build script for easy installation. You still need to activate your conda environment
 (or virtual environment if you like). Full installation option will install third party libraries (suggested).
 
@@ -178,7 +181,7 @@ The **-i** option on the build command will install the drivability checker to t
 
             $ conda activate commonroad-py36
 
-#. Run the build script (both for Mac OS and Linux)
+#. Run the build script
 
         **Basic installation without CGAL and s11n:**
 
@@ -197,4 +200,4 @@ The **-i** option on the build command will install the drivability checker to t
          - *3.6*  with the Python version of your Anaconda environment.
          - *JOB_COUNT*  with the number of jobs you are willing to allocate to cmake, for example *-j 2*. Each job (possibly) will use a core, so specify this number according to your system and free cores.
 
-        For more additional options, please run **bash build.sh -h** command to view them.
+        For additional options, please run **bash build.sh -h** command to view them.
