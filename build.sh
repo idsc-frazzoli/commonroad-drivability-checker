@@ -245,6 +245,15 @@ function install_dc() {
   )
 }
 
+function install_dc_wheel() {
+  (
+    set -e
+    print_progress "Installing as python package..." -n
+    epython -m pip install dist/commonroad_drivability_checker-*.whl
+    print_progress "Done!" -n
+  )
+}
+
 function wheel_dc() {
   (
     set -e
@@ -347,9 +356,13 @@ if [ "${DOCS}" == "TRUE" ]; then
 else
   build_dc
 fi
-if [ "${INSTALL}" == "TRUE" ]; then
-  install_dc
-fi
 if [ "${WHEEL}" == "TRUE" ]; then
   wheel_dc
+fi
+if [ "${INSTALL}" == "TRUE" ]; then
+  if [ "${WHEEL}" == "TRUE" ]; then
+    install_dc_wheel
+  else
+    install_dc
+  fi
 fi
