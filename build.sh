@@ -333,7 +333,7 @@ print_args
 remove_folder build dist *.egg-info *.so *.a
 fetch_submodules
 linux_command require_sudo apt-get -y install build-essential cmake git wget unzip libboost-dev libboost-thread-dev
-linux_command require_sudo apt-get -y libboost-test-dev libboost-filesystem-dev libeigen3-dev
+linux_command require_sudo apt-get -y install libboost-test-dev libboost-filesystem-dev libeigen3-dev
 build_libccd
 build_fcl
 if [ "${S11N}" == "TRUE" ]; then
