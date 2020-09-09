@@ -69,7 +69,7 @@ def _create_pp_solution_collision_object(planning_problem_set: PlanningProblemSe
 
 def _construct_boundary_checker(scenario: Scenario) -> CollisionChecker:
     build = ['section_triangles', 'triangulation']
-    boundary = construction.construct(scenario, build, [], [])
+    boundary = construction.construct(scenario, build)
     road_boundary_shape_list = []
     initial_state = None
     for r in boundary['triangulation'].unpack():
