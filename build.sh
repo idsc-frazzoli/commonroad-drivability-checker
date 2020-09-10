@@ -13,6 +13,8 @@ INSTALL="FALSE"
 WHEEL="FALSE"
 CGAL="FALSE"
 S11N="FALSE"
+NO_ROOT="FALSE"
+PREFIX_STRING=""
 JOBS=1
 DOCS="FALSE"
 COMMONROAD=""
@@ -30,6 +32,7 @@ Options:
     -j COUNT    allowed job count for make -j ${JOBS}
     -d | --docs   creates the documentation while compiling
     -c PATH | --commonroad PATH  absolute path to the commonroad-io library
+    --no-root   install libraries to the user home directory
 "
 
 # Functions
@@ -75,6 +78,7 @@ function print_args() {
   print_info "INSTALL AFTER COMPILE = ${INSTALL}"
   print_info "CREATE WHEEL PACKAGE  = ${WHEEL}"
   print_info "INSTALL CGAL          = ${CGAL}"
+  print_info "NO ROOT               = ${NO_ROOT}"
   print_info "ALLOWED JOBS          = ${JOBS}"
   print_info "DOCS                  = ${DOCS}"
   print_info "COMMONROAD PATH       = ${COMMONROAD}" -n
@@ -100,11 +104,16 @@ function linux_command() {
 }
 
 function require_sudo() {
-  if [[ $EUID -ne 0 ]]; then
-    print_info "Permission required, using root."
-    sudo ${@}
-  else
+  if [ "${NO_ROOT}" == "TRUE" ]; then
     ${@}
+  else
+
+    if [[ $EUID -ne 0 ]]; then
+      print_info "Permission required, using root."
+      sudo ${@}
+    else
+      ${@}
+    fi
   fi
 }
 
@@ -153,9 +162,12 @@ function build_libccd() {
     print_progress "Building libccd..." -n
     cd third_party/libccd
     create_build_dir -r
-    cmake -G "Unix Makefiles" -DENABLE_DOUBLE_PRECISION=ON -DBUILD_SHARED_LIBS=ON ..
+
+
+    cmake -G "Unix Makefiles" $PREFIX_STRING -DENABLE_DOUBLE_PRECISION=ON -DBUILD_SHARED_LIBS=ON ..
     make -j ${JOBS}
     require_sudo make install
+
     print_progress "Done!" -n
     back_to_basedir
   )
@@ -169,7 +181,7 @@ function build_fcl() {
     cd third_party/fcl
     osx_command brew install eigen
     create_build_dir -r
-    cmake ..
+    cmake $PREFIX_STRING ..
     make -j ${JOBS}
     require_sudo make install
     print_progress "Done!" -n
@@ -183,7 +195,7 @@ function build_s11n() {
     print_progress "Building s11n..."
     cd third_party/libs11n
     create_build_dir -r
-    cmake .. -DCMAKE_BUILD_TYPE=Release
+    cmake $PREFIX_STRING .. -DCMAKE_BUILD_TYPE=Release
     make -j ${JOBS}
     require_sudo make install
     print_progress "Done!" -n
@@ -207,8 +219,9 @@ function build_dc() {
     set -e
     print_progress "Building drivability checker..." -n
     create_build_dir -r
-    epython -m pip install -r ../requirements.txt
-    cmake -DADD_PYTHON_BINDINGS=TRUE -DPATH_TO_PYTHON_ENVIRONMENT="${ENVIRONMENT}" -DPYTHON_VERSION="${VERSION}" -DCMAKE_BUILD_TYPE=Release ..
+    #epython -m pip install -r ../requirements.txt
+    cmake $PREFIX_STRING -DADD_PYTHON_BINDINGS=TRUE -DPATH_TO_PYTHON_ENVIRONMENT="${ENVIRONMENT}" -DPYTHON_VERSION="${VERSION}" -DCMAKE_BUILD_TYPE=Release ..
+    print_progress "Done!" -n
     osx_command sed -i '' 's!-lccd!/usr/local/lib/libccd.2.0.dylib!' python_binding/CMakeFiles/pycrcc.dir/link.txt
     make -j ${JOBS}
     print_progress "Done!" -n
@@ -306,6 +319,11 @@ while [[ $# -gt 0 ]]; do
     shift # past argument
     ;;
 
+  --no-root)
+    NO_ROOT="TRUE"
+    shift # past argument
+    ;;
+
   -j)
     JOBS="$2"
     shift # past argument
@@ -341,15 +359,21 @@ print_args
 # Start building
 remove_folder build dist *.egg-info *.so *.a
 fetch_submodules
-linux_command require_sudo apt-get -y install build-essential cmake git wget unzip libboost-dev libboost-thread-dev
-linux_command require_sudo apt-get -y install libboost-test-dev libboost-filesystem-dev libeigen3-dev
+if [ "${NO_ROOT}" == "FALSE" ]; then
+	linux_command require_sudo apt-get -y install build-essential cmake git wget unzip libboost-dev libboost-thread-dev
+	linux_command require_sudo apt-get -y install libboost-test-dev libboost-filesystem-dev libeigen3-dev
+else 
+  PREFIX_STRING="-DCMAKE_PREFIX_PATH=$HOME -DCMAKE_INSTALL_PREFIX=$HOME"
+fi
 build_libccd
 build_fcl
 if [ "${S11N}" == "TRUE" ]; then
   build_s11n
 fi
-if [ "${CGAL}" == "TRUE" ]; then
-  install_cgal
+if [ "${NO_ROOT}" == "FALSE" ]; then
+	if [ "${CGAL}" == "TRUE" ]; then
+	  install_cgal
+	fi
 fi
 if [ "${DOCS}" == "TRUE" ]; then
   build_dc_with_docs
