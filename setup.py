@@ -10,7 +10,7 @@ class BinaryDistribution(dist.Distribution):
 
 setup(
     name='commonroad-drivability-checker',
-    version='2021.2',
+    version='2021.1',
     description='Drivability checker for CommonRoad scenarios.',
     url='https://commonroad.in.tum.de/',
     author='Technical University of Munich',
