@@ -143,7 +143,7 @@ function install_dc() {
     set -e
     print_progress "Installing as python package..." -n
     #python setup.py install - bad way to install, may download beta packages
-    pip install . --use-feature=in-tree-build
+    python -m pip install .
     print_progress "Done!" -n
   )
 }
@@ -152,7 +152,7 @@ function install_dc_wheel() {
   (
     set -e
     print_progress "Installing as python package..." -n
-    pip install dist/commonroad_drivability_checker-*.whl
+    python -m pip install dist/commonroad_drivability_checker-*.whl
     print_progress "Done!" -n
   )
 }
@@ -161,7 +161,7 @@ function wheel_dc() {
   (
     set -e
     print_progress "Creating wheel package..." -n
-    pip install wheel
+    python -m pip install wheel
     python setup.py bdist_wheel
     print_progress "Done!" -n
   )
