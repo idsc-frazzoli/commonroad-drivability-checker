@@ -176,20 +176,20 @@ class CMakeBuild(build_ext):
 
 
 setup(
-    name='commonroad-drivability-checker',
+    name='dg-commonroad-drivability-checker',
     version=__version__,
-    description='Drivability checker for CommonRoad scenarios.',
+    description='Fork of the Drivability checker for CommonRoad scenarios.',
     long_description_content_type='text/markdown',
     long_description=readme,
-    url='https://commonroad.in.tum.de/drivability-checker',
+    url='https://github.com/idsc-frazzoli/commonroad-drivability-checker',
     project_urls={
         'Documentation': 'https://cps.pages.gitlab.lrz.de/commonroad-drivability-checker/',
         'Forum': 'https://commonroad.in.tum.de/forum/c/commonroad-drivability-checker/',
         'Source': 'https://gitlab.lrz.de/tum-cps/commonroad-drivability-checker',
     },
 
-    author='Technical University of Munich',
-    author_email='commonroad@lists.lrz.de',
+    author='IDSC Frazzoli',
+    author_email='azanardi@ethz.ch',
     license='BSD',
     data_files=[('.', ['LICENSE'])],
 
