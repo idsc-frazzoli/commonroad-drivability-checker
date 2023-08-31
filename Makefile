@@ -1,4 +1,6 @@
 PYTHON_VERSION=3.11
+cpus = 5
+# 	BUILD_JOBS:=$(cpus)
 
 .PHONY: build
 
@@ -16,6 +18,6 @@ upload:
 	git push --tags
 	git push
 	rm -f dist/*
-	rm -rf src/*.egg-info
+	rm -rf *.egg-info
 	python setup.py sdist
 	twine upload dist/*
