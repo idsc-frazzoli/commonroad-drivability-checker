@@ -1,15 +1,6 @@
 CommonRoad Drivability Checker
 ------------------------------
 
-## Important note:
-
-This is a "forked" version of the [original gitlab project](https://gitlab.lrz.de/tum-cps/commonroad-drivability-checker).
-To contribute to this project please set the upstream to the original gitlab project.
-```
-git remote add upstream https://gitlab.lrz.de/tum-cps/commonroad-drivability-checker.git
-```
----------------------------------------------------
-
 Collision avoidance, kinematic feasibility, and road-compliance must be
 validated to ensure the drivability of planned motions for autonomous
 vehicles. The CommonRoad Drivability Checker toolbox unifies these checks
