@@ -49,7 +49,7 @@ FetchContent_Declare(
   fcl
   
   GIT_REPOSITORY  https://github.com/flexible-collision-library/fcl.git
-  GIT_TAG         43f9805445e73397077127556165f8af822c0383
+  GIT_TAG         df2702ca5e703dec98ebd725782ce13862e87fc8
 
   # Necessary to run git am in CI environment (git am requires committer name and email)
   GIT_CONFIG user.name=cmake user.email=cmake@localhost
